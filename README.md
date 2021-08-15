@@ -1,4 +1,21 @@
-# LITE
+# Results
+We have conducted comparative experiments on 15 spark-bench applications. We compared LITE with four state-of-the-art Spark tuning methods. (1) Default: we
+recorded the execution time of applications upon default configurations. (2) Manual: we hired experts to tune the applications based on his expertise and the tuning guides for maximally 12 hours. (3) BO: we used Bayesian Optimization, where Gaussian Process was the surrogate model and Expected Improvement was the acquisition function. We used 5 most similar instances in the training set to initialize Gaussian Process. Then, BO was trained for at least 2 hours. (4) DDPG: we built a reinforcement learning framework which
+used Deep Deterministic Policy Gradient, where the action space was the configurations, and the state was the inner status summary of Spark. DDPG was also trained for at least 2 hours.
+
+|          | PCA  | CC     | DT   | KM    | LP   | LR   | Logit | PR   | PO   | SP   | SCC  | SVD++ | SVM    | TS   | TC   |
+|----------|------|--------|------|-------|------|------|-------|------|------|------|------|-------|--------|------|------|
+| Default  | 3600 | 7200   | 5578 | 18756 | 7200 | 7141 | 2649  | 7200 | 7200 | 7200 | 7200 | 7200  | 7200   | 7200 | 7200 |
+| Manual   | 408  | 304    | 498  | 2655  | 413  | 1283 | 324   | 4099 | 253  | 217  | 515  | 445   | 665    | 667  | 7200 |
+| DDPG(2h) | 1396 | 98     | 523  | 3288  | 349  | 3476 | 1126  | 2553 | 395  | 7200 | 1095 | 7200  | 3600   | 1131 | 114  |
+| DDPG+CNN |      |        |      |       |      |      |       |      |      |      |      |       |        |      |      |
+| BO(2h)   | 339  | 84     | 737  | 2884  | 353  | 614  | 619   | 7200 | 249  | 168  | 586  | 423   | 675    | 1865 | 81   |
+| LITE     | 316  | 81.933 | 449  | 2881  | 348  | 448  | 345   | 2184 | 116  | 145  | 316  | 352   | 456.97 | 325  | 65   |
+| RFR      | 498  | 720    | 1380 |       |      | 588  | 480   | 7200 | 7200 | 7200 |      |       | 660    | 336  |      |
+| tmin     | 316  | 81.933 | 449  | 2655  | 348  | 448  | 324   | 2184 | 116  | 145  | 316  | 352   | 456.97 | 325  | 65   |
+
+
+# LITE 
 
 ## 1. Data Generate
 
