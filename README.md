@@ -86,23 +86,55 @@ python scripts/build_dataset.py <result_path> <dataset_path>
 
 ## 3.Data Preprocessing
 
-Obtain the stage code characteristics: enter the instrumentation folder, mark maven into a jar package, and add it to the spark-submit command.
-
+Obtain the stage code characteristics: enter the instrumentation folder, maven it into a jar package which name is preMain-1.0.jar 
+```
+cd instrumentation 
+mvn clean package
+```
+and add  the package to the spark-submit's shell file as follow:
 ```sh
---conf "spark.driver.extraJavaOptions=-javaagent:/pathtoyourjar/preMain-1.0.jar"
+spark-submit --class <workload_class> --master yarn --conf "spark.executor.cores=4"  --conf "spark.executor.memory=5g" --conf "spark.driver.extraJavaOptions=-javaagent:<path_to_your_instrumentation_jar>/preMain-1.0.jar" <path_to_spark_bench>/<workload>/target/spark-example-1.0- SNAPSHOT.jar
 ```
 
-Our model is saved in prediction_nn,
+The stage code is in /inst_log, you can change it by yourself; The file you get by instrumentation should be parsed by prediction_ml/spark_tuning/by_stage/instrumentation/all_code_by_stage/[get_all_code.py](https://github.com/cheyennelin/LITE/blob/main/prediction_ml/spark_tuning/by_stage/instrumentation/all_code_by_stage/get_all_code.py)
 
-You should use **data_process_text.py、dag2data.py、dataset_process.py** to get dictionary information、Process the edge and node information of the graph, and convert the data features into graph features.
+```
+python get_all_code.py <folder_of_instrumentation> <code_reuslt_folder>
+```
+
+Our model is saved in [prediction_nn](https://github.com/cheyennelin/LITE/tree/main/prediction_nn),
+
+You should use **data_process_text.py、dag2data.py、dataset_process.py** to get dictionary information、Process the edge and node information of the graph, and Integrate all features.
+
+```
+python data_process_text.py <code_reuslt_folder>
+python dag2data.py <log_folder>
+python data_process.py
+```
+
+Dictionary information and graph information  are saved in [dag_data](https://github.com/cheyennelin/LITE/tree/main/prediction_nn/dag_data), all these information and the dataset in section 2 will be Integrate by data_precess.py, the final dataset will in the folder dataset.
 
 ## 4.Model Training
 
 Then use **fast_train.py** to train model.
 
-Use **trans_learn.py** finetune the model.
+```
+python fast_train.py
+```
+
+You can change the config of model through [config.py](https://github.com/cheyennelin/LITE/blob/main/prediction_nn/config.py), and the model will be saved in model_save.
+
+You can also use **trans_learn.py** finetune the model.
+
+```
+python trans_learn.py
+```
 
 ## 5.Model Testing
 
-**nn_pred_8.py** can test the model，we use predict_first_cold.py to predict the best combination of parameters and check its actual operation.
+[nn_pred_1.py](https://github.com/cheyennelin/LITE/blob/main/prediction_nn/nn_pred_1.py) can test the model，we use [predict_first_cold.py](https://github.com/cheyennelin/LITE/blob/main/prediction_nn/predict_first_cold.py) to predict the best combination of parameters and check its actual operation.
 
+```
+python nn_pred_8.py <path_to_test_dataset>
+python predict_first_cold.py <path_to_spark_bench_folders>
+```
