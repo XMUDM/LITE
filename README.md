@@ -32,7 +32,7 @@ Maven 4.15
 CUDA Version: 10.1
 ```
 
-We get the training data by running the workload in sparkBench，which can be installed by referring to https://github.com/CODAIT/spark-bench.
+We get the training data by running the workload in SparkBench，which can be installed by referring to https://github.com/CODAIT/spark-bench.
 
 ## 1. Data Generate
 
