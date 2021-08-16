@@ -109,10 +109,10 @@ You should use **data_process_text.py、dag2data.py、dataset_process.py** to ge
 ```
 python data_process_text.py <code_reuslt_folder>
 python dag2data.py <log_folder>
-python data_process.py
+python dataset_process.py
 ```
 
-Dictionary information and graph information  are saved in [dag_data](https://github.com/cheyennelin/LITE/tree/main/prediction_nn/dag_data), all these information and the dataset in section 2 will be Integrate by data_precess.py, the final dataset will in the folder dataset.
+Dictionary information and graph information  are saved in [dag_data](https://github.com/cheyennelin/LITE/tree/main/prediction_nn/dag_data), all these information and the dataset in section 2 will be Integrate by [dataset_process.py](https://github.com/cheyennelin/LITE/blob/main/prediction_nn/dataset_process.py), the final dataset will in the folder dataset.
 
 ## 4.Model Training
 
