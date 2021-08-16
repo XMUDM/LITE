@@ -11,6 +11,16 @@
 
 import os
 
+from argparse import ArgumentParser
+
+def parse_args():
+    parser = ArgumentParser(description="get stage code")
+
+    parser.add_argument('base_log_dir', type=str, help='files from instrumentation')
+    parser.add_argument('all_code_dir', type=str, help='dir of all code of stage')
+    return parser.parse_args()
+
+args = parse_args()
 
 def search_in_lib(guide, file_name, start_line, end_line, root='../../../spark-lib/spark-2.4.6/'):
     paths = os.listdir(root)
@@ -66,9 +76,10 @@ def get_code_a_workload(workload):
 # base_log_dir = '../log/'
 # all_code_dir = 'all_code/'
 
-base_log_dir = '../log_filtered/'
-all_code_dir = 'all_code_filtered/'
-
+# base_log_dir = '../log_filtered/'
+# all_code_dir = 'all_code_filtered/'
+base_log_dir = args.base_log_dir
+all_code_dir = args.all_code_filtered
 spark_lib_dir = '../../../spark-lib/spark-2.4.6/'
 if __name__ == '__main__':
     workloads = os.listdir(base_log_dir)
