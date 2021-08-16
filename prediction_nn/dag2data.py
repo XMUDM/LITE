@@ -14,6 +14,18 @@ import json
 import torch
 import numpy as np
 from torch_geometric.data import Data
+from argparse import ArgumentParser
+
+def parse_args():
+    parser = ArgumentParser(description="get graph of dag")
+
+    parser.add_argument('dag_logs', type=str, help='dir of example log of each workload')
+
+    return parser.parse_args()
+
+args = parse_args()
+
+dag_logs = args.dag_logs
 
 
 def read_dag(dags):
@@ -58,10 +70,10 @@ def traverse_all_dag(all_dags, word_count):
 
 
 def build_vocab():
-    raw_file_list = os.listdir('dag_logs/')
+    raw_file_list = os.listdir(dag_logs)
     word_count = {}
     for f in raw_file_list:
-        raw_file = open('dag_logs/' + f, 'r', encoding='utf-8')
+        raw_file = open(dag_logs + f, 'r', encoding='utf-8')
         line = raw_file.readlines()[0]
         line_json = json.loads(line)
         all_dags = line_json['dags']
@@ -135,11 +147,11 @@ def dag2matrix(dag, w2i):
 
 
 def build_graph_data():
-    raw_file_list = os.listdir('dag_logs/')
+    raw_file_list = os.listdir(dag_logs)
     ws2g = {}
     w2i = get_w2i()
     for f in raw_file_list:
-        raw_file = open('dag_logs/' + f, 'r', encoding='utf-8')
+        raw_file = open(dag_logs + f, 'r', encoding='utf-8')
         line = raw_file.readlines()[0]
         line_json = json.loads(line)
         all_dags = line_json['dags']
@@ -153,11 +165,11 @@ def build_graph_data():
 
 
 def build_matrix_data():
-    raw_file_list = os.listdir('dag_logs/')
+    raw_file_list = os.listdir(dag_logs)
     ws2nodes, ws2adj = {}, {}
     w2i = get_w2i()
     for f in raw_file_list:
-        raw_file = open('dag_logs/' + f, 'r', encoding='utf-8')
+        raw_file = open(dag_logs + f, 'r', encoding='utf-8')
         line = raw_file.readlines()[0]
         line_json = json.loads(line)
         all_dags = line_json['dags']
@@ -170,6 +182,7 @@ def build_matrix_data():
             ws2adj[f][s_id] = adj
     torch.save(ws2nodes, 'dag_data/ws2nodes.pth')
     torch.save(ws2adj, 'dag_data/ws2adj.pth')
+
 
 
 if __name__ == '__main__':
