@@ -1,9 +1,23 @@
-from gp_minimize_fjd import gp_minimize
+from skopt import gp_minimize
 import shell_content
 import os
 import time
 import signal
 import subprocess
+
+from argparse import ArgumentParser
+
+def parse_args():
+    parser = ArgumentParser(description="PyTorch data stall profiler")
+
+    parser.add_argument('spark_bench_path', type=str, help='path to sparkbench')
+
+    return parser.parse_args()
+
+args = parse_args()
+
+
+
 
 result_sizes = ['200m', '500m', '1g', '2g', '4g']
 workload = 0
@@ -69,7 +83,7 @@ def run_command(cmd_string, timeout=100):
 
 def get_duration_from_sh(sample):
     global times
-    spark_bench_path = "/home/spark_user/lib/spark-bench-legacy/"
+    spark_bench_path = args.spark_bench_path
     AppName = ['ConnectedComponent', 'DecisionTree', 'KMeans', 'LabelPropagation', 'LinearRegression',
                 'LogisticRegression', 'PageRank',
                 'PCA', 'PregelOperation', 'ShortestPaths', 'StronglyConnectedComponent', 'SVM', 'Terasort',
@@ -103,7 +117,7 @@ def bayes_sample():
     dimension = [(1, 8), (1, 8), (1, 9), (1, 8), (1, 8), (1, 8), (1, 8), (0, 4), (4, 8), (1, 4), (1, 9),
                  (1, 4), (0, 1), (1, 8), (0, 1)]
 
-    w = [i for i in range(15)]
+    w = [i for i in range(14)]
     for workload_count in w:
         workload = workload_count
         times = 500
