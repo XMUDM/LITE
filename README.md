@@ -122,7 +122,7 @@ Then use **fast_train.py** to train model.
 python fast_train.py
 ```
 
-You can change the config of model through [config.py](https://github.com/cheyennelin/LITE/blob/main/prediction_nn/config.py), and the model will be saved in model_save.
+You can change the config of model through [config.py](https://github.com/cheyennelin/LITE/blob/main/prediction_nn/config.py), and the model will be saved in the folder model_save.
 
 You can also use **trans_learn.py** finetune the model.
 
