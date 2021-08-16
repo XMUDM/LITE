@@ -12,7 +12,7 @@ import json
 from argparse import ArgumentParser
 
 def parse_args():
-    parser = ArgumentParser(description="PyTorch data stall profiler")
+    parser = ArgumentParser(description="Parse log")
 
     parser.add_argument('spark_bench_conf_path', type=str, help='path to sparkbench conf')
     parser.add_argument('history_dir', type=str, help='path to sparkbench log on local')
