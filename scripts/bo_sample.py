@@ -8,7 +8,7 @@ import subprocess
 from argparse import ArgumentParser
 
 def parse_args():
-    parser = ArgumentParser(description="PyTorch data stall profiler")
+    parser = ArgumentParser(description="run workload with bayes_optimation")
 
     parser.add_argument('spark_bench_path', type=str, help='path to sparkbench')
 
