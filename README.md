@@ -16,10 +16,38 @@ used Deep Deterministic Policy Gradient, where the action space was the configur
 
 
 # LITE 
+## Enviroment
+
+The project is implemented using python 3.6 and tested in Linux environment. Our system environment and cuda version as follows:
+
+```
+ubuntu 18.04
+Hadoop 2.7.7
+spark 2.4.7
+HiBench 7.0
+JAVA 1.8
+SCALA  2.12.10
+Python 3.6
+Maven 4.15
+CUDA Version: 10.1
+```
+
+We get the training data by running the workload in sparkBench，which can be installed by referring to https://github.com/CODAIT/spark-bench.
 
 ## 1. Data Generate
 
-Run **scripts/bo_sample.py** to automatically run the workload in spark-bench to generate log files.
+
+You can generate log files using the following command:
+
+```
+python scripts/bo_sample.py <path_to_spark_bench_folders>
+```
+
+The log file will be saved on your spark history server, you can use the following command to download it to the local.
+
+```
+hdfs dfs -get <path_to_spark_history_server_folders_on_hdfs> <local_folders>
+```
 
 ## 2. Process Original Log
 
