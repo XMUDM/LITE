@@ -16,6 +16,16 @@ from pathlib import Path
 import numpy as np
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 
+from argparse import ArgumentParser
+
+def parse_args():
+    parser = ArgumentParser(description="get code dict")
+
+    parser.add_argument('all_code_dir', type=str, help='dir of all code of stage')
+
+    return parser.parse_args()
+
+args = parse_args()
 
 def load_all_code_by_stage():
     workload_stage2code = {}
@@ -107,7 +117,8 @@ UNKNOWN_WORD = '<UNK>'
 BOS_WORD = '<S>'
 EOS_WORD = '</S>'
 SEQ_LEN = 1000
-all_code_dir = 'all_code/'
+# all_code_dir = 'all_code/'
+all_code_dir = args.all_code_dir
 if __name__ == '__main__':
     build_vocab_code()
     # ids = code2ids('val a = 1')
