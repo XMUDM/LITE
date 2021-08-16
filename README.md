@@ -135,6 +135,6 @@ python trans_learn.py
 [nn_pred_1.py](https://github.com/cheyennelin/LITE/blob/main/prediction_nn/nn_pred_1.py) can test the model，we use [predict_first_cold.py](https://github.com/cheyennelin/LITE/blob/main/prediction_nn/predict_first_cold.py) to predict the best combination of parameters and check its actual operation.
 
 ```
-python nn_pred_8.py <path_to_test_dataset>
+python nn_pred_8.py
 python predict_first_cold.py <path_to_spark_bench_folders>
 ```
