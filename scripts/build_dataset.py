@@ -13,6 +13,14 @@ import json
 import csv
 import pandas as pd
 from copy import deepcopy
+def parse_args():
+    parser = ArgumentParser(description="build dataset")
+
+    parser.add_argument('dataset_path', type=str, help='path to result of json')
+    parser.add_argument('dataset_path_new', type=str, help='path to result of csv')
+    return parser.parse_args()
+
+args = parse_args()
 
 all_fields = ['AppId', 'AppName', 'Duration',
               'spark.default.parallelism', 'spark.driver.cores', 'spark.driver.memory', 'spark.driver.maxResultSize', 'spark.executor.instances', 'spark.executor.cores', 'spark.executor.memory', 'spark.executor.memoryOverhead', 'spark.files.maxPartitionBytes', 'spark.memory.fraction', 'spark.memory.storageFraction', 'spark.reducer.maxSizeInFlight', 'spark.shuffle.compress', 'spark.shuffle.file.buffer', 'spark.shuffle.spill.compress',
@@ -35,8 +43,8 @@ def get_workload_feat(data, row_dict):
     row_dict['AppName'] = data['AppName']
     row_dict['Duration'] = data['Duration']
     for spark_param in data['SparkParameters']:
-        if spark_param.find('spark.executor.memory') >= 0:
-            spark_param = spark_param.strip().replace("g", "").replace("512m", "0.5")
+        if spark_param.find('spark.driver.maxResultSize') >= 0:
+            spark_param = spark_param.strip().replace("g", "").replace("500m", "0.5").replace("200m", "0.2")
         k, v = spark_param.split("=")
         row_dict[str(k)] = float(v.replace('g', '').replace('m', "").replace('k', '').replace("true", "1").replace("false", "0"))
     row_dict['rows'],  row_dict["cols"], row_dict["itr"], row_dict["partitions"] = 0, 0, 0, 0
@@ -146,5 +154,5 @@ def build_all(data_dir, csv_path):
 
 
 if __name__ == '__main__':
-    build_all(data_dir='dataset_by_workload/', csv_path='dataset_by_stage_merged/dataset_by_stage_8.csv')
+    build_all(data_dir=args.dataset_path, csv_path=args.dataset_path_new)
     # build_all(data_dir='dataset_test_new/', csv_path='dataset_by_stage_merged/dataset_test_1.csv')
