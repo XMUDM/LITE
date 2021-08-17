@@ -1,18 +1,30 @@
-# Results
-We have conducted comparative experiments on 15 spark-bench applications. We compared LITE with four state-of-the-art Spark tuning methods. (1) Default: we
-recorded the execution time of applications upon default configurations. (2) Manual: we hired experts to tune the applications based on his expertise and the tuning guides for maximally 12 hours. (3) BO: we used Bayesian Optimization, where Gaussian Process was the surrogate model and Expected Improvement was the acquisition function. We used 5 most similar instances in the training set to initialize Gaussian Process. Then, BO was trained for at least 2 hours. (4) DDPG: we built a reinforcement learning framework which
-used Deep Deterministic Policy Gradient, where the action space was the configurations, and the state was the inner status summary of Spark. DDPG was also trained for at least 2 hours.
+LITE is an auto-tuning system for various Spark applications on large-scale datasets. 
 
-|          | PCA  | CC     | DT   | KM    | LP   | LR   | Logit | PR   | PO   | SP   | SCC  | SVD++ | SVM    | TS   | TC   |
-|----------|------|--------|------|-------|------|------|-------|------|------|------|------|-------|--------|------|------|
-| Default  | 3600 | 7200   | 5578 | 18756 | 7200 | 7141 | 2649  | 7200 | 7200 | 7200 | 7200 | 7200  | 7200   | 7200 | 7200 |
-| Manual   | 408  | 304    | 498  | 2655  | 413  | 1283 | 324   | 4099 | 253  | 217  | 515  | 445   | 665    | 667  | 7200 |
-| DDPG(2h) | 1396 | 98     | 523  | 3288  | 349  | 3476 | 1126  | 2553 | 395  | 7200 | 1095 | 7200  | 3600   | 1131 | 114  |
-| DDPG+CNN | 342  | 7200   | 547  |       |      | 971  | 617   |      |      |      |      |       | 1443   | 2030 |      |
-| BO(2h)   | 339  | 84     | 737  | 2884  | 353  | 614  | 619   | 7200 | 249  | 168  | 586  | 423   | 675    | 1865 | 81   |
-| LITE     | 316  | 81.933 | 449  | 2881  | 348  | 448  | 345   | 2184 | 116  | 145  | 316  | 352   | 456.97 | 325  | 65   |
-| RFR      | 498  | 7200   | 1380 |       | 7200 | 588  | 480   | 7200 | 7200 | 7200 | 723  | 1560  | 660    | 336  | 7200 |
-| tmin     | 316  | 81.933 | 449  | 2655  | 348  | 448  | 324   | 2184 | 116  | 145  | 316  | 352   | 456.97 | 325  | 65   |
+# Performance Overview
+## Tuning performance on Sparkbench applications
+We have conducted comparative experiments on 15 spark-bench applications. 
+
+Figure 1 presents comparative performance of LITE, against several baselines. 
+(1) Default: using Spark's default configurations. 
+(2) Manual: manually tuning the applications based on expertise and the online tuning guides for maximally 12 hours. 
+(3) BO: trial-and-error Bayesian Optimization tuning, where Gaussian Process was the surrogate model and Expected Improvement was the acquisition function. We used 5 most similar instances in the training set to initialize Gaussian Process. Then, BO was trained for at least 2 hours. 
+(4) DDPG: a reinforcement learning framework based on Deep Deterministic Policy Gradient, where the action space was the configurations, and the state was the inner status summary of Spark. DDPG was also trained for at least 2 hours.
+(5) DDPG+Code: similar as QTune, an additional module is incorporated in DDPG, which predicts the change of outer metric based on pretrained code features extracted by LITE and the inner status.
+(6) RFR: a Random Forest Regression model is trained to map the input datasize and the application to an appropriate knob value. Since the prediction of RFR is numerical, for discrete valued knobs, we round the prediction of RFR to the nearest integer. 
+
+
+
+| Application | PCA  | CC     | DT   | KM    | LP   | LR   | Logit | PR   | PO   | SP   | SCC  | SVD++ | SVM    | TS   | TC   |
+|-------------|------|--------|------|-------|------|------|-------|------|------|------|------|-------|--------|------|------|
+| Default     | 3600 | 7200   | 5578 | 18756 | 7200 | 7141 | 2649  | 7200 | 7200 | 7200 | 7200 | 7200  | 7200   | 7200 | 7200 |
+| Manual      | 408  | 304    | 498  | 2655  | 413  | 1283 | 324   | 4099 | 253  | 217  | 515  | 445   | 665    | 667  | 7200 |
+| DDPG(2h)    | 1396 | 98     | 523  | 3288  | 349  | 3476 | 1126  | 2553 | 395  | 7200 | 1095 | 7200  | 3600   | 1131 | 114  |
+| DDPG+Code   | 342  | 7200   | 547  | 7200  | 572  | 971  | 617   | 7200 | 7200 | 7200 | 7200 | 7200  | 1443   | 2030 | 7200 |
+| BO(2h)      | 339  | 84     | 737  | 2884  | 353  | 614  | 619   | 7200 | 249  | 168  | 586  | 423   | 675    | 1865 | 81   |
+| RFR         | 498  | 720    | 1380 | 7200  | 7200 | 588  | 480   | 7200 | 7200 | 7200 | 720  | 1560  | 660    | 336  | 7200 |
+| LITE        | 316  | 81.933 | 449  | 2881  | 348  | 448  | 345   | 2184 | 116  | 145  | 316  | 352   | 456.97 | 325  | 65   |
+| tmin        | 316  | 81.933 | 449  | 2655  | 348  | 448  | 324   | 2184 | 116  | 145  | 316  | 352   | 456.97 | 325  | 65   |
+
 
 
 # LITE 
