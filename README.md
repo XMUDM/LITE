@@ -206,15 +206,17 @@ python fast_train.py
 
 You can change the config of model through [config.py](https://github.com/cheyennelin/LITE/blob/main/prediction_nn/config.py), and the model will be saved in the folder model_save.
 
-You can also use **trans_learn.py** finetune the model.
+## 3. Model Update
+
+You can also use **trans_learn.py** to finetune the model.
 
 ```
 python trans_learn.py
 ```
 
-## 3.Model Testing
+## 4.Model Testing
 
-[nn_pred_1.py](https://github.com/cheyennelin/LITE/blob/main/prediction_nn/nn_pred_1.py) can test the model，we use [predict_first_cold.py](https://github.com/cheyennelin/LITE/blob/main/prediction_nn/predict_first_cold.py) to predict the best combination of parameters and check its actual operation.
+[nn_pred_1.py](https://github.com/cheyennelin/LITE/blob/main/prediction_nn/nn_pred_1.py) can test the model，we use [predict_first_cold.py](https://github.com/cheyennelin/LITE/blob/main/prediction_nn/predict_first_cold.py) to predict the best combination of parameters and evaluate the performance.
 
 ```
 python nn_pred_8.py
