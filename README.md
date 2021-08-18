@@ -47,7 +47,7 @@ In summary, the average actural execution time and average percentage of executi
 
 ## Ablation Study on Feature Encoding and Performance Estimation Modules
 
-![*Figure 2 Ranking performance by various machine learning methods*](https://github.com/cheyennelin/LITE/blob/main/fig2.png)
+![*Figure 2 Ranking performance by various feature encoding and performance estimation modules*](https://github.com/cheyennelin/LITE/blob/main/fig2.png)
 
 We used “feature encoding + performance estimation” to represent a comparative method. For example,𝑊 + 𝑆𝑉𝑅 means support vector regression was implemented on application instance features.
 
@@ -81,6 +81,27 @@ write (i.e., bytes and records written to disk in order to be read by a shuffle 
 (3) XGB ranker: a ranking model.
 
 (4) MLP: a tower Multi-Layer-Perception
+
+### Evaluation Metrics ###
+
+We used ranking evaluation metrics for a thorough study of the performance. Two evaluation metrics were adopted, HR@K and NDCG@K (here we set K=5).
+
+*Table 2 Ranking performance by different feature encoding and performance estimation modules*
+
+| Methods             | Cluster A |        | Cluster B |        | Cluster C |        |
+|---------------------|-----------|--------|-----------|--------|-----------|--------|
+|                     | HR@5      | NDCG@5 | HR@5      | NDCG@5 | HR@5      | NDCG@5 |
+| W+SVR               | 0.3812    | 0.4717 | 0.3813    | 0.5163 | 0.3307    | 0.4568 |
+| W+MLP               | 0.21      | 0.3257 | 0.208     | 0.3089 | 0.2015    | 0.2888 |
+| W+LightGBM          | 0.4462    | 0.5586 | 0.2693    | 0.3746 | 0.3107    | 0.419  |
+| S+LightGBM          | 0.3825    | 0.5293 | 0.3973    | 0.5238 | 0.3784    | 0.5095 |
+| WC+LightGBM         | 0.4525    | 0.5755 | 0.3333    | 0.449  | 0.363     | 0.5181 |
+| SC+xgb ranker       | 0.45      | 0.589  | 0.3413    | 0.4673 | 0.3584    | 0.5172 |
+| SC+LightGBM         | 0.4575    | 0.6127 | 0.4173    | 0.547  | 0.3846    | 0.5466 |
+| SCG+LightGBM        | 0.4137    | 0.5524 | 0.3786    | 0.4867 | 0.3938    | 0.5134 |
+| LSTM+GCN+MLP        | 0.4253    | 0.6072 | 0.405     | 0.568  | 0.4053    | 0.5663 |
+| Transformer+GCN+MLP | 0.425     | 0.5971 | 0.4016    | 0.5444 | 0.4001    | 0.5587 |
+| NECS(CNN+GCN+MLP)   | 0.4706    | 0.6192 | 0.444     | 0.5702 | 0.4283    | 0.5818 |
 
 
 # LITE 
