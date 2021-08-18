@@ -25,18 +25,6 @@ Figure 1 reports percentage of execution time reduction, which is defined as t/t
 
 ![*Table 1 Actural execution time by different methods*](https://github.com/cheyennelin/LITE/blob/main/tab1.png)
 
-*Table 1 Actural execution time by different methods*
-| Application | PCA  | CC     | DT   | KM    | LP   | LR   | Logit | PR   | PO   | SP   | SCC  | SVD++ | SVM    | TS   | TC   |
-|-------------|------|--------|------|-------|------|------|-------|------|------|------|------|-------|--------|------|------|
-| Default     | 3600 | 7200   | 5578 | 18756 | 7200 | 7141 | 2649  | 7200 | 7200 | 7200 | 7200 | 7200  | 7200   | 7200 | 7200 |
-| Manual      | 408  | 304    | 498  | 2655  | 413  | 1283 | 324   | 4099 | 253  | 217  | 515  | 445   | 665    | 667  | 7200 |
-| DDPG(2h)    | 1396 | 98     | 523  | 3288  | 349  | 3476 | 1126  | 2553 | 395  | 7200 | 1095 | 7200  | 3600   | 1131 | 114  |
-| DDPG+Code   | 342  | 7200   | 547  | 3113  | 572  | 971  | 617   | 7200 | 7200 | 1276 | 443  | 637   | 1443   | 2030 | 83   |
-| BO(2h)      | 339  | 84     | 737  | 2884  | 353  | 614  | 619   | 7200 | 249  | 168  | 586  | 423   | 675    | 1865 | 81   |
-| RFR         | 498  | 720    | 1380 | 2884  | 7200 | 588  | 480   | 7200 | 7200 | 7200 | 720  | 1560  | 660    | 336  | 7200 |
-| LITE        |**316** | **81.933**| **449** | **2881** | **348** | **448** | **345**   | **2184** | **116**  | **145**  | **316**  | **352**   | **456.97** | **325**  | **65** |
-| tmin        | 316  | 81.933 | 449  | 2655  | 348  | 448  | 324   | 2184 | 116  | 145  | 316  | 352   | 456.97 | 325  | 65   |
-
 
 In summary, the average actural execution time and average percentage of execution time reduction for different tuning methods are:
 
@@ -87,23 +75,6 @@ write (i.e., bytes and records written to disk in order to be read by a shuffle 
 
 We used ranking evaluation metrics for a thorough study of the performance. Two evaluation metrics were adopted, HR@K and NDCG@K (here we set K=5).
 ![*Table 2 Ranking performance by different feature encoding and performance estimation modules*](https://github.com/cheyennelin/LITE/blob/main/tab2.png)
-
-*Table 2 Ranking performance by different feature encoding and performance estimation modules*
-
-| Methods             | Cluster A          | Cluster B          | Cluster C          |
-|---------------------|-----------|--------|-----------|--------|-----------|--------|
-|                     | HR@5      | NDCG@5 | HR@5      | NDCG@5 | HR@5      | NDCG@5 |
-| W+SVR               | 0.3812    | 0.4717 | 0.3813    | 0.5163 | 0.3307    | 0.4568 |
-| W+MLP               | 0.21      | 0.3257 | 0.208     | 0.3089 | 0.2015    | 0.2888 |
-| W+LightGBM          | 0.4462    | 0.5586 | 0.2693    | 0.3746 | 0.3107    | 0.419  |
-| S+LightGBM          | 0.3825    | 0.5293 | 0.3973    | 0.5238 | 0.3784    | 0.5095 |
-| WC+LightGBM         | 0.4525    | 0.5755 | 0.3333    | 0.449  | 0.363     | 0.5181 |
-| SC+xgb ranker       | 0.45      | 0.589  | 0.3413    | 0.4673 | 0.3584    | 0.5172 |
-| SC+LightGBM         | 0.4575    | 0.6127 | 0.4173    | 0.547  | 0.3846    | 0.5466 |
-| SCG+LightGBM        | 0.4137    | 0.5524 | 0.3786    | 0.4867 | 0.3938    | 0.5134 |
-| LSTM+GCN+MLP        | 0.4253    | 0.6072 | 0.405     | 0.568  | 0.4053    | 0.5663 |
-| Transformer+GCN+MLP | 0.425     | 0.5971 | 0.4016    | 0.5444 | 0.3906    | 0.5483 |
-| NECS(CNN+GCN+MLP)   | **0.4706** | **0.6192** | **0.444** | **0.5702** | **0.4283** | **0.5818** |
 
 
 
