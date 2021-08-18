@@ -23,7 +23,7 @@ Figure 1 presents comparative performance of LITE, against several baselines.
 ### Evaluation Metrics ###
 Figure 1 reports percentage of execution time reduction, which is defined as t/tmin, where t is the execution time produced by the method, and tmin is the smallest execution time by different methods on this application, according to Table 1. 
 
-![*Table 1 Actural execution time by different methods*](https://github.com/cheyennelin/LITE/blob/main/tab1.png)
+![*Table 1 Actural execution time by different methods*](https://github.com/cheyennelin/LITE/blob/main/tab1_actural.png)
 
 
 In summary, the average actural execution time and average percentage of execution time reduction for different tuning methods are:
