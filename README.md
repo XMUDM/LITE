@@ -1,11 +1,13 @@
 LITE is an auto-tuning system for various Spark applications on large-scale datasets. 
 
+[TOC]
+
 # Performance Overview
-## Tuning performance on Sparkbench applications
+## Tuning Performance on Sparkbench Applications
 We have conducted comparative experiments on 15 spark-bench applications. 
 
 ![*Figure 1 Percentage of execution time reduction by different tuning methods*](https://github.com/cheyennelin/LITE/blob/main/fig1.png)
-
+### Baselines ###
 Figure 1 presents comparative performance of LITE, against several baselines. 
 (1) Default: using Spark's default configurations. 
 
@@ -19,6 +21,7 @@ Figure 1 presents comparative performance of LITE, against several baselines.
 
 (6) RFR: a Random Forest Regression model is trained to map the input datasize and the application to an appropriate knob value. Since the prediction of RFR is numerical, for discrete valued knobs, we round the prediction of RFR to the nearest integer. 
 
+### Evaluation Metrics ###
 Figure 1 reports percentage of execution time reduction, which is defined as t/tmin, where t is the execution time produced by the method, and tmin is the smallest execution time by different methods on this application, according to Table 1. 
 
 *Table 1 Actural execution time by different methods*
@@ -27,18 +30,57 @@ Figure 1 reports percentage of execution time reduction, which is defined as t/t
 | Default     | 3600 | 7200   | 5578 | 18756 | 7200 | 7141 | 2649  | 7200 | 7200 | 7200 | 7200 | 7200  | 7200   | 7200 | 7200 |
 | Manual      | 408  | 304    | 498  | 2655  | 413  | 1283 | 324   | 4099 | 253  | 217  | 515  | 445   | 665    | 667  | 7200 |
 | DDPG(2h)    | 1396 | 98     | 523  | 3288  | 349  | 3476 | 1126  | 2553 | 395  | 7200 | 1095 | 7200  | 3600   | 1131 | 114  |
-| DDPG+Code   | 342  | 7200   | 547  | 3113  | 572  | 971  | 617   | 7200 | 7200 | 1276 | 443  | 423   | 1443   | 2030 | 83   |
+| DDPG+Code   | 342  | 7200   | 547  | 3113  | 572  | 971  | 617   | 7200 | 7200 | 1276 | 443  | 637   | 1443   | 2030 | 83   |
 | BO(2h)      | 339  | 84     | 737  | 2884  | 353  | 614  | 619   | 7200 | 249  | 168  | 586  | 423   | 675    | 1865 | 81   |
 | RFR         | 498  | 720    | 1380 | 2884  | 7200 | 588  | 480   | 7200 | 7200 | 7200 | 720  | 1560  | 660    | 336  | 7200 |
 | LITE        | 316  | 81.933 | 449  | 2881  | 348  | 448  | 345   | 2184 | 116  | 145  | 316  | 352   | 456.97 | 325  | 65   |
 | tmin        | 316  | 81.933 | 449  | 2655  | 348  | 448  | 324   | 2184 | 116  | 145  | 316  | 352   | 456.97 | 325  | 65   |
 
+
 In summary, the average actural execution time and average percentage of execution time reduction for different tuning methods are:
 
-|                                                | Default     | Manual      | DDPG(2h)    | DDPG+Code   | BO(2h)      | RFR         | LITE     |
-|------------------------------------------------|-------------|-------------|-------------|-------------|-------------|-------------|----------|
-| Average Actural Execution Time                 | 7314.933333 | 1329.733333 | 2236.266667 | 2230.666667 | 1125.133333 | 3055.066667 | 588.594  |
-| Average Percentage of Execution Time Reduction | 0.074       | 0.626       | 0.442       | 0.496       | 0.689       | 0.410       | 0.991    |
+| Method                                         | Default   | Manual    | DDPG(2h)  | DDPG+Code | BO(2h)    | RFR       | LITE     |
+|------------------------------------------------|-----------|-----------|-----------|-----------|-----------|-----------|----------|
+| Average Actural Execution Time                 | 7314.933  | 1329.733  | 2236.267  | 2244.933  | 1125.133  | 3055.067  | 588.594  |
+| Average Percentage of Execution Time Reduction | 0.074     | 0.626     | 0.442     | 0.478     | 0.689     | 0.410     | 0.991    |
+
+
+## Ablation Study on Feature Encoding and Performance Estimation Modules
+
+![*Figure 2 Ranking performance by various machine learning methods*](https://github.com/cheyennelin/LITE/blob/main/fig2.png)
+
+We used “feature encoding + performance estimation” to represent a comparative method. For example,𝑊 + 𝑆𝑉𝑅 means support vector regression was implemented on application instance features.
+
+### Different Design Choices for Feature Encoding ###
+
+(1) W: application instance features include the model’s input was application instance features (i.e., data features and environment features), output was the execution time
+of the application instance.
+
+(2) WC: in addition of the application instance features, we added program codes of the application as model’s input. 
+
+(3) S: the model’s input was stagelevel features, while the model’s output was stage-level execution time. Besides the data features and environment features, we fed the
+model with four key stage-level data statistics obtained in the Spark monitor UI, including stage input (i.e., bytes read from storage in this stage), stage output (i.e., bytes written in storage in this stage), shuffle read (i.e., total shuffle bytes and records read, includes both data read locally and data read from remote executors), and shuffle
+write (i.e., bytes and records written to disk in order to be read by a shuffle in a future stage). Note that the stage-level data statistics were not used in our proposed model NECS, because they are only accessible when the application has been acturally executed on the real input data and it will be problematic to handle large-scale input data. 
+
+(4) SC: in addition of the stage-level features, the stage-level codes were input in the manner of bag of words. 
+
+(5) SCG: in addition of the stage-level code features, we used pretrained scheduler features (i.e., scheduler DAGs are trained in a LSTM to predict “next” DAG to obtain the DAG embedding vector) as model’s input.
+
+(6) LSTM: a Long-Short-Term-Memory network was used to encode the stage-level codes. 
+
+(7) Transformer: a transformer network based on multi-head self attention was used to encode the stage-level codes.
+
+(8) GCN: a Graph Convolutional Neural network was used to encode the stage-level scheduler DAGs. 
+
+### Different Design Choices for Performance Estimation ###
+
+(1) SVR: support vector regression.
+
+(2) LightGBM: an ensemble model based on gradient boosted machine. 
+
+(3) XGB ranker: a ranking model.
+
+(4) MLP: a tower Multi-Layer-Perception
 
 
 # LITE 
