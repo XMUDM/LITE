@@ -23,6 +23,8 @@ Figure 1 presents comparative performance of LITE, against several baselines.
 ### Evaluation Metrics ###
 Figure 1 reports percentage of execution time reduction, which is defined as t/tmin, where t is the execution time produced by the method, and tmin is the smallest execution time by different methods on this application, according to Table 1. 
 
+![*Table 1 Actural execution time by different methods*](https://github.com/cheyennelin/LITE/blob/main/tab1.png)
+
 *Table 1 Actural execution time by different methods*
 | Application | PCA  | CC     | DT   | KM    | LP   | LR   | Logit | PR   | PO   | SP   | SCC  | SVD++ | SVM    | TS   | TC   |
 |-------------|------|--------|------|-------|------|------|-------|------|------|------|------|-------|--------|------|------|
@@ -84,6 +86,7 @@ write (i.e., bytes and records written to disk in order to be read by a shuffle 
 ### Evaluation Metrics ###
 
 We used ranking evaluation metrics for a thorough study of the performance. Two evaluation metrics were adopted, HR@K and NDCG@K (here we set K=5).
+![*Table 2 Ranking performance by different feature encoding and performance estimation modules*](https://github.com/cheyennelin/LITE/blob/main/tab2.png)
 
 *Table 2 Ranking performance by different feature encoding and performance estimation modules*
 
@@ -100,7 +103,7 @@ We used ranking evaluation metrics for a thorough study of the performance. Two 
 | SCG+LightGBM        | 0.4137    | 0.5524 | 0.3786    | 0.4867 | 0.3938    | 0.5134 |
 | LSTM+GCN+MLP        | 0.4253    | 0.6072 | 0.405     | 0.568  | 0.4053    | 0.5663 |
 | Transformer+GCN+MLP | 0.425     | 0.5971 | 0.4016    | 0.5444 | 0.3906    | 0.5483 |
-| NECS(CNN+GCN+MLP)   |**0.4706** |**0.6192**|**0.444**|**0.5702**|**0.4283**|**0.5818**|
+| NECS(CNN+GCN+MLP)   | **0.4706** | **0.6192** | **0.444** | **0.5702** | **0.4283** | **0.5818** |
 
 
 
