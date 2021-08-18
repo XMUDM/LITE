@@ -74,6 +74,7 @@ write (i.e., bytes and records written to disk in order to be read by a shuffle 
 ### Evaluation Metrics ###
 
 We used ranking evaluation metrics for a thorough study of the performance. Two evaluation metrics were adopted, HR@K and NDCG@K (here we set K=5).
+
 ![*Table 2 Ranking performance by different feature encoding and performance estimation modules*](https://github.com/cheyennelin/LITE/blob/main/tab2.png)
 
 
