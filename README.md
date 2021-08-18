@@ -33,7 +33,7 @@ Figure 1 reports percentage of execution time reduction, which is defined as t/t
 | DDPG+Code   | 342  | 7200   | 547  | 3113  | 572  | 971  | 617   | 7200 | 7200 | 1276 | 443  | 637   | 1443   | 2030 | 83   |
 | BO(2h)      | 339  | 84     | 737  | 2884  | 353  | 614  | 619   | 7200 | 249  | 168  | 586  | 423   | 675    | 1865 | 81   |
 | RFR         | 498  | 720    | 1380 | 2884  | 7200 | 588  | 480   | 7200 | 7200 | 7200 | 720  | 1560  | 660    | 336  | 7200 |
-| LITE        | 316  | 81.933 | 449  | 2881  | 348  | 448  | 345   | 2184 | 116  | 145  | 316  | 352   | 456.97 | 325  | 65   |
+| LITE        |**316  | 81.933 | 449  | 2881  | 348  | 448  | 345   | 2184 | 116  | 145  | 316  | 352   | 456.97 | 325  | 65 **|
 | tmin        | 316  | 81.933 | 449  | 2655  | 348  | 448  | 324   | 2184 | 116  | 145  | 316  | 352   | 456.97 | 325  | 65   |
 
 
@@ -41,8 +41,8 @@ In summary, the average actural execution time and average percentage of executi
 
 | Method                                         | Default   | Manual    | DDPG(2h)  | DDPG+Code | BO(2h)    | RFR       | LITE     |
 |------------------------------------------------|-----------|-----------|-----------|-----------|-----------|-----------|----------|
-| Average Actural Execution Time                 | 7314.933  | 1329.733  | 2236.267  | 2244.933  | 1125.133  | 3055.067  | 588.594  |
-| Average Percentage of Execution Time Reduction | 0.074     | 0.626     | 0.442     | 0.478     | 0.689     | 0.410     | 0.991    |
+| Average Actural Execution Time                 | 7314.933  | 1329.733  | 2236.267  | 2244.933  | 1125.133  | 3055.067  |**588.594**|
+| Average Percentage of Execution Time Reduction | 0.074     | 0.626     | 0.442     | 0.478     | 0.689     | 0.410     | **0.991**|
 
 
 ## Ablation Study on Feature Encoding and Performance Estimation Modules
@@ -88,7 +88,7 @@ We used ranking evaluation metrics for a thorough study of the performance. Two 
 
 *Table 2 Ranking performance by different feature encoding and performance estimation modules*
 
-| Methods             | Cluster A |        | Cluster B |        | Cluster C |        |
+| Methods             | Cluster A          | Cluster B          | Cluster C          |
 |---------------------|-----------|--------|-----------|--------|-----------|--------|
 |                     | HR@5      | NDCG@5 | HR@5      | NDCG@5 | HR@5      | NDCG@5 |
 | W+SVR               | 0.3812    | 0.4717 | 0.3813    | 0.5163 | 0.3307    | 0.4568 |
@@ -100,8 +100,9 @@ We used ranking evaluation metrics for a thorough study of the performance. Two 
 | SC+LightGBM         | 0.4575    | 0.6127 | 0.4173    | 0.547  | 0.3846    | 0.5466 |
 | SCG+LightGBM        | 0.4137    | 0.5524 | 0.3786    | 0.4867 | 0.3938    | 0.5134 |
 | LSTM+GCN+MLP        | 0.4253    | 0.6072 | 0.405     | 0.568  | 0.4053    | 0.5663 |
-| Transformer+GCN+MLP | 0.425     | 0.5971 | 0.4016    | 0.5444 | 0.4001    | 0.5587 |
-| NECS(CNN+GCN+MLP)   | 0.4706    | 0.6192 | 0.444     | 0.5702 | 0.4283    | 0.5818 |
+| Transformer+GCN+MLP | 0.425     | 0.5971 | 0.4016    | 0.5444 | 0.3906    | 0.5483 |
+| NECS(CNN+GCN+MLP)   |**0.4706** |**0.6192**|**0.444**|**0.5702**|**0.4283**|**0.5818**|
+
 
 
 # LITE 
