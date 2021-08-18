@@ -1,6 +1,5 @@
 LITE is an auto-tuning system for various Spark applications on large-scale datasets. 
 
-[TOC]
 
 # Performance Overview
 ## Tuning Performance on Sparkbench Applications
@@ -33,7 +32,7 @@ Figure 1 reports percentage of execution time reduction, which is defined as t/t
 | DDPG+Code   | 342  | 7200   | 547  | 3113  | 572  | 971  | 617   | 7200 | 7200 | 1276 | 443  | 637   | 1443   | 2030 | 83   |
 | BO(2h)      | 339  | 84     | 737  | 2884  | 353  | 614  | 619   | 7200 | 249  | 168  | 586  | 423   | 675    | 1865 | 81   |
 | RFR         | 498  | 720    | 1380 | 2884  | 7200 | 588  | 480   | 7200 | 7200 | 7200 | 720  | 1560  | 660    | 336  | 7200 |
-| LITE        |**316  | 81.933 | 449  | 2881  | 348  | 448  | 345   | 2184 | 116  | 145  | 316  | 352   | 456.97 | 325  | 65 **|
+| LITE        |**316** | **81.933**| **449** | **2881** | **348** | **448** | **345**   | **2184** | **116**  | **145**  | **316**  | **352**   | **456.97** | **325**  | **65** |
 | tmin        | 316  | 81.933 | 449  | 2655  | 348  | 448  | 324   | 2184 | 116  | 145  | 316  | 352   | 456.97 | 325  | 65   |
 
 
