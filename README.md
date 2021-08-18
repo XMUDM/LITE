@@ -77,6 +77,18 @@ We used ranking evaluation metrics for a thorough study of the performance. Two 
 
 ![*Table 2 Ranking performance by different feature encoding and performance estimation modules*](https://github.com/cheyennelin/LITE/blob/main/tab2.png)
 
+In summary, the average HR@5 and NDCG@5 increasement over different clusters are
+
+| Code Feature Encoding | Workload Code | Stage Level Code (BOW) | Stage Level Code (LSTM) | Stage Level Code (Transformer) |
+|-----------------------|---------------|------------------------|-------------------------|--------------------------------|
+| LITE's HR@5 Inprov.   | 0.065         | 0.046                  | 0.036                   | 0.042                          |
+| LITE's NDCG@5 Inprov. | 0.076         | 0.044                  | 0.010                   | 0.027                          |
+
+| DAG Encoding        | SCG (LSTM) |
+|---------------------|------------|
+| LITE's HR@5 Inprov. | 0.052      |
+| LITE's HR@5 Inprov. | 0.073      |
+
 
 
 # LITE 
