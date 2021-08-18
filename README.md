@@ -79,15 +79,15 @@ We used ranking evaluation metrics for a thorough study of the performance. Two 
 
 In summary, the average HR@5 and NDCG@5 increasement over different clusters are
 
-| Code Feature Encoding | Workload Code | Stage Level Code (BOW) | Stage Level Code (LSTM) | Stage Level Code (Transformer) |
-|-----------------------|---------------|------------------------|-------------------------|--------------------------------|
-| LITE's HR@5 Inprov.   | 0.065         | 0.046                  | 0.036                   | 0.042                          |
-| LITE's NDCG@5 Inprov. | 0.076         | 0.044                  | 0.010                   | 0.027                          |
+| Code Feature Encoding  | Workload Code | Stage Level Code (BOW) | Stage Level Code (LSTM) | Stage Level Code (Transformer) |
+|------------------------|---------------|------------------------|-------------------------|--------------------------------|
+| LITE's HR@5 Increase   | 0.065         | 0.046                  | 0.036                   | 0.042                          |
+| LITE's NDCG@5 Increase | 0.076         | 0.044                  | 0.010                   | 0.027                          |
 
-| DAG Encoding        | SCG (LSTM) |
-|---------------------|------------|
-| LITE's HR@5 Inprov. | 0.052      |
-| LITE's HR@5 Inprov. | 0.073      |
+| DAG Encoding         | SCG (LSTM) |
+|----------------------|------------|
+| LITE's HR@5 Increase | 0.052      |
+| LITE's HR@5 Increase | 0.073      |
 
 
 
@@ -160,7 +160,11 @@ Save as training data file
 ```
 python scripts/build_dataset.py <result_path> <dataset_path>
 ```
+The dataset files are written as comma-separated values files with a single header row. 
 
+```
+AppId	AppName	Duration	spark.default.parallelism	spark.driver.cores	spark.driver.memory	spark.driver.maxResultSize	spark.executor.instances	spark.executor.cores	spark.executor.memory	spark.executor.memoryOverhead	spark.files.maxPartitionBytes	spark.memory.fraction	spark.memory.storageFraction	spark.reducer.maxSizeInFlight	spark.shuffle.compress	spark.shuffle.file.buffer	spark.shuffle.spill.compress	rows	cols	itr	partitions	stage_id	duration	input	output	read	write	code	node_num	cpu_cores	cpu_freq	mem_size	mem_speed	net_width
+```
 
 ### 1.3.Stage-based Code Organization (for LITE)
 
